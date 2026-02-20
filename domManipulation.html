@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DOM Demo</title>
+</head>
+<body>
+
+<h1 id="title">Hello World</h1>
+
+<img id="img" src="https://via.placeholder.com/100" alt="placeholder">
+
+<button id="changeBtn">Change Text</button>
+<button id="createBtn">Create Element</button>
+<button id="removeBtn">Remove Element</button>
+
+<div id="container"></div>
+
+<script>
+
+// select elements
+const title = document.getElementById("title")
+const img = document.getElementById("img")
+const container = document.querySelector("#container")
+
+// change text
+document.getElementById("changeBtn").addEventListener("click", () => {
+
+  title.innerText = "Text changed using innerText"
+
+  img.src = "https://via.placeholder.com/200"
+  img.alt = "new image"
+
+  title.style.color = "red"
+})
+
+
+// create new element
+let newEl
+
+document.getElementById("createBtn").addEventListener("click", () => {
+
+  newEl = document.createElement("p")
+
+  newEl.textContent = "New paragraph created"
+
+  container.appendChild(newEl)
+
+})
+
+
+// remove element
+document.getElementById("removeBtn").addEventListener("click", () => {
+
+  if(newEl){
+    newEl.remove()
+  }
+
+})
+
+</script>
+
+</body>
+</html>
