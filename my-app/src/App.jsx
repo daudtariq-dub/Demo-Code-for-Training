@@ -6,13 +6,13 @@ import Users from "./pages/Users";
 function App()
 {
   return (
-    <BrowserRouter>
-    <navBar></navBar>
+    <div>
+    <NavBar></NavBar>
     <Routes>
         <Route path="/" element ={<Home></Home>}></Route>
         <Route path ="/users" element = {<Users></Users>}></Route>
     </Routes>
-    </BrowserRouter>
+    </div>
   );
 }
 

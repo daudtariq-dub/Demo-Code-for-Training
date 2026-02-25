@@ -1,10 +1,10 @@
-import {userState} from "react";
+import {useState} from "react";
 
-function AddUser({onAddUser})
+function AddUser({addUserHandler})
 {
     const [name,setName]=useState("");
     const submitHandler=()=>{
-        onAddUser(name);
+        addUserHandler(name);
         setName("");
     };
 
@@ -12,7 +12,7 @@ function AddUser({onAddUser})
         <div>
             <input value = {name}
             onChange={(e)=>setName(e.target.value)}
-            placeHolder="enter name">
+            placeholder="enter name">
             </input>
             <button onClick ={submitHandler}>
                 Add user
