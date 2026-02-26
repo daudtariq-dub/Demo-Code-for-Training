@@ -54,3 +54,96 @@ function Home({users}) //recieved props
     )
 
 }
+
+function Users({users,addUser})
+{
+    return(
+        <div>
+            <h2>Users</h2>
+            <AddUsers addUser={addUser}></AddUsers>
+            <UserList users={users}></UserList>
+        </div>
+    )
+}
+
+function AddUsers({addUser})
+{
+    const inputRef=useRef();
+    const formik =useFormik({
+        initialValues:{
+            name:"",
+            email:""
+        },
+        validationSchema:Yup.object({
+            name: Yup.string().required("Name req"),
+
+            email: Yup.string().email("Invalid email").required("Email Required")
+        }),
+        onSubmit:values =>{
+            addUser(values);
+
+            formik.resetForm();
+
+            inputRef.current.focus();
+        }
+
+    });
+
+    return (
+        <form onSubmit = {formik.handleSubmit}>
+            <input
+            ref={inputRef}
+            name="name"
+            placeholder="Name"
+            onChange={formik.handleChange}
+            value={formik.values.name}></input>
+
+            <p>{formik.errors.name}</p>
+
+            <input
+                name="email"
+                placeholder="email"
+                onChange ={formik.handleChange}
+                value={formik.values.email}>
+            </input>
+
+            <p>{formik.errors.email}</p>
+
+            <button type ="submit">
+                Add user
+            </button>
+        </form>
+    );
+}
+
+function UserList({users})
+{
+    const navigate = useNavigate();
+    return (
+        <div>
+            <h3>UserList</h3>
+            {users.map(user=>(
+                <div key = {user.id}>
+                    {user.name} - {user.email}
+                    <button onClick={()=>navigate(`/users/${user.id}`)}>View</button>
+                </div>))}
+        </div>
+    );
+}
+
+function UserDetail({users})
+{
+    const {id} = useParams();
+    const user = users.find(u=>u.id===Number(id));
+    if(!user) return <p>User not found</p>
+
+    return (
+        <div>
+            <h2>User Detail</h2>
+            <p>Name: {user.name}</p>
+            <p>Email:{user.email}</p>
+            <Link to="/users">Back</Link>
+        </div>
+    );
+}
+
